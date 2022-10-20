@@ -22,6 +22,9 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('/shorturls', [ShortUrlController::class, 'index'])->middleware(['auth'])->name('shorturls.index');
+Route::resource('shorturl', ShortUrlController::class)->middleware(['auth']);
 
-require __DIR__.'/auth.php';
+Route::get('/s/{token}', [ShortUrlController::class, 'redirect'])
+    ->where('name', '[A-Za-z0-9]+');
+
+require __DIR__ . '/auth.php';
