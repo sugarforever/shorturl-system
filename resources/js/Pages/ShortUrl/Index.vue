@@ -26,6 +26,12 @@
                             </template>
                         </el-table-column>
                         <el-table-column prop="created_at" label="Created At" />
+                        <el-table-column label="QR Code">
+                            <template #default="scope" >
+                                <el-button v-if="!scope.row.qr_code" type="primary" @click="generateQRCode(scope.row.token)">QR Code</el-button>
+                                <img v-if="scope.row.qr_code" :src="scope.row.qr_code" />
+                            </template>
+                        </el-table-column>
                     </el-table>
                 </el-tab-pane>
             </el-tabs>
@@ -36,6 +42,7 @@
 <script>
 import { Head } from '@inertiajs/inertia-vue3'
 import Layout from '@/Shared/ElementPlus/Layout.vue'
+import { Inertia } from '@inertiajs/inertia'
 
 export default {
     components: {
@@ -60,6 +67,11 @@ export default {
                 onSuccess: () => this.form.reset('long_url'),
             })
         },
+        generateQRCode(token) {
+            Inertia.get('/shorturl/qrcode', {
+                token: token
+            })
+        }
     }
 }
 </script>
