@@ -19,8 +19,7 @@
             <el-main>
                 <slot />
             </el-main>
-            <el-footer>
-            </el-footer>
+            <el-footer></el-footer>
         </el-container>
     </div>
 </template>

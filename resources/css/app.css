@@ -2,3 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+/*
+@import url('http://fonts.cdnfonts.com/css/proxima-nova-2');
+
+body, button {
+    font-family: 'Proxima Nova', 'PingFang SC', 'Hiragino Sans GB',
+        'Microsoft YaHei', '微软雅黑', Arial, sans-serif;
+}
+*/
