@@ -9,6 +9,10 @@ use App\Services\TokenService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\Log;
+use chillerlan\QRCode\QRCode;
+use chillerlan\QRCode\QROptions;
+
 
 class ShortUrlController extends Controller
 {
@@ -115,5 +119,20 @@ class ShortUrlController extends Controller
                 'error' => "Invalid token {$token}"
             ], 404);
         }
+    }
+
+    public function getQRCode(Request $request)
+    {
+        $token = $request->input('token');
+        $longUrl = ShortUrl::where('token', $token)->first()->long_url;
+        $full_path = public_path() . '/' . "{$token}.svg";
+        $options = new QROptions([
+            'version'    => 5,
+            'outputType' => QRCode::OUTPUT_MARKUP_SVG,
+            'eccLevel'   => QRCode::ECC_L,
+        ]);
+        $generator = new QRCode($options);
+        $generator->render($longUrl, $full_path);
+        return Redirect::route('shorturl.index');
     }
 }

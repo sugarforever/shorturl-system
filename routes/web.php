@@ -22,6 +22,8 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+Route::get('/shorturl/qrcode', [ShortUrlController::class, 'getQRCode'])->middleware(['auth']);
+
 Route::resource('shorturl', ShortUrlController::class)->middleware(['auth']);
 
 Route::get('/s/{token}', [ShortUrlController::class, 'redirect'])
