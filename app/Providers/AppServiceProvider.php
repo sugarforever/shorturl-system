@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use App\Services\Base62Service;
+use App\Services\Database\DBShortUrlViewService;
+use App\Services\ShortUrlViewService;
 use App\Services\Snowflake\SnowflakeTokenService;
 use App\Services\TokenService;
 use Illuminate\Support\ServiceProvider;
@@ -21,6 +23,9 @@ class AppServiceProvider extends ServiceProvider
         });
         $this->app->singleton(TokenService::class, function($app) {
             return new SnowflakeTokenService();
+        });
+        $this->app->singleton(ShortUrlViewService::class, function($app) {
+            return new DBShortUrlViewService();
         });
     }
 

@@ -19,4 +19,9 @@ class ShortUrl extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function view()
+    {
+        return $this->hasOne(ShortUrlView::class);
+    }
 }
