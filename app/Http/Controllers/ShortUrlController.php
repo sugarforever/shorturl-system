@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\ShortUrlResource;
 use App\Models\ShortUrl;
+use App\Models\ShortUrlView;
 use App\Services\Base62Service;
+use App\Services\ShortUrlViewService;
 use App\Services\TokenService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
@@ -55,10 +57,15 @@ class ShortUrlController extends Controller
         $token = $tokenService->nextToken();
         $base62_encoded = $base62Service->encode($token);
 
-        ShortUrl::create([
+        $shortUrl = ShortUrl::create([
             'long_url' => $long_url,
             'token' => $base62_encoded,
             'user_id' => $user_id
+        ]);
+
+        ShortUrlView::create([
+            'short_url_id' => $shortUrl->id,
+            'count' => 0
         ]);
 
         return Redirect::route('shorturl.index');
@@ -109,10 +116,11 @@ class ShortUrlController extends Controller
         //
     }
 
-    public function redirect($token)
+    public function redirect($token, ShortUrlViewService $shortUrlViewService)
     {
         $shortUrl = ShortUrl::where('token', $token)->first();
         if (isset($shortUrl)) {
+            $shortUrlViewService->increment($token, 1);
             return redirect($shortUrl->long_url);
         } else {
             return response([
