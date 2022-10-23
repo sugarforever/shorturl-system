@@ -27,6 +27,11 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(ShortUrlViewService::class, function($app) {
             return new DBShortUrlViewService();
         });
+
+        if ($this->app->environment('local')) {
+            $this->app->register(\Laravel\Telescope\TelescopeServiceProvider::class);
+            $this->app->register(TelescopeServiceProvider::class);
+        }
     }
 
     /**
