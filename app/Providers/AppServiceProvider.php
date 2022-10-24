@@ -7,10 +7,12 @@ use App\Services\Database\DBShortUrlViewService;
 use App\Services\ShortUrlViewService;
 use App\Services\Snowflake\SnowflakeTokenService;
 use App\Services\TokenService;
+use App\Services\PrometheusService;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
+
     /**
      * Register any application services.
      *
@@ -32,6 +34,9 @@ class AppServiceProvider extends ServiceProvider
             $this->app->register(\Laravel\Telescope\TelescopeServiceProvider::class);
             $this->app->register(TelescopeServiceProvider::class);
         }
+
+        # Prometheus
+        $this->app->singleton(PrometheusService::class, PrometheusService::class);
     }
 
     /**

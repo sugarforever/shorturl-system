@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PrometheusController;
 use App\Http\Controllers\ShortUrlController;
 use Illuminate\Support\Facades\Route;
 
@@ -29,4 +30,5 @@ Route::resource('shorturl', ShortUrlController::class)->middleware(['auth']);
 Route::get('/s/{token}', [ShortUrlController::class, 'redirect'])
     ->where('name', '[A-Za-z0-9]+');
 
+Route::get('/metrics', [PrometheusController::class, 'metrics']);
 require __DIR__ . '/auth.php';
