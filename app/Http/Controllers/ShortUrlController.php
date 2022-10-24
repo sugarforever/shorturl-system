@@ -14,7 +14,7 @@ use Inertia\Inertia;
 use Illuminate\Support\Facades\Log;
 use chillerlan\QRCode\QRCode;
 use chillerlan\QRCode\QROptions;
-
+use App\Services\PrometheusService;
 
 class ShortUrlController extends Controller
 {
@@ -116,11 +116,17 @@ class ShortUrlController extends Controller
         //
     }
 
-    public function redirect($token, ShortUrlViewService $shortUrlViewService)
+    public function redirect($token, 
+        ShortUrlViewService $shortUrlViewService,
+        PrometheusService $prometheusService)
     {
         $shortUrl = ShortUrl::where('token', $token)->first();
         if (isset($shortUrl)) {
             $shortUrlViewService->increment($token, 1);
+            
+            # Prometheus
+            $prometheusService->incrementViews($token, 1);
+
             return redirect($shortUrl->long_url);
         } else {
             return response([
