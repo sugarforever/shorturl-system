@@ -27,14 +27,15 @@
                         </el-table-column>
                         <el-table-column prop="created_at" label="Created At" />
                         <el-table-column label="QR Code">
-                            <template #default="scope" >
+                            <!--template #default="scope" >
                                 <el-button v-if="!scope.row.qr_code" type="primary" @click="generateQRCode(scope.row.token)">QR Code</el-button>
                                 <img v-if="scope.row.qr_code" :src="scope.row.qr_code" />
-                            </template>
+                            </template-->
                         </el-table-column>
                     </el-table>
                 </el-tab-pane>
             </el-tabs>
+            <iframe src="http://localhost:3000/d-solo/xqLiNKHVk/short-url-views?orgId=1&from=1666778108772&to=1666799708773&panelId=2" width="100%" height="480" frameborder="0"></iframe>
         </el-col>
     </el-row>
 </template>
