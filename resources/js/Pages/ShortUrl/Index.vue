@@ -26,16 +26,20 @@
                             </template>
                         </el-table-column>
                         <el-table-column prop="created_at" label="Created At" />
-                        <el-table-column label="QR Code">
+                        <el-table-column label="Metrics">
                             <!--template #default="scope" >
                                 <el-button v-if="!scope.row.qr_code" type="primary" @click="generateQRCode(scope.row.token)">QR Code</el-button>
                                 <img v-if="scope.row.qr_code" :src="scope.row.qr_code" />
                             </template-->
+                            <template #default="scope">
+                                <el-link type="primary" :href="`http://127.0.0.1:3000/d-solo/xqLiNKHVk/short-url-views?var-token=${scope.row.token}&orgId=1&panelId=2`" target="_blank">
+                                    Metrics
+                                </el-link>
+                            </template>
                         </el-table-column>
                     </el-table>
                 </el-tab-pane>
             </el-tabs>
-            <iframe src="http://localhost:3000/d-solo/xqLiNKHVk/short-url-views?orgId=1&from=1666778108772&to=1666799708773&panelId=2" width="100%" height="480" frameborder="0"></iframe>
         </el-col>
     </el-row>
 </template>
