@@ -25,7 +25,7 @@ class ShortUrlController extends Controller
      */
     public function index()
     {
-        $data = ShortUrlResource::collection(ShortUrl::all());
+        $data = ShortUrlResource::collection(ShortUrl::orderBy('created_at', 'desc')->get());
         return Inertia::render("ShortUrl/Index", [
             "shortUrls" => $data
         ]);
