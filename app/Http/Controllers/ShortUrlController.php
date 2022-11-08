@@ -67,7 +67,7 @@ class ShortUrlController extends Controller
         try {
             $client = new Client();
             $response = $client->request("GET", $long_url);
-            $html = (string) $response->getBody(); 
+            $html = (string) $response->getBody();
             $pattern = "/<title>(.+?)<\/title>/i";
             preg_match($pattern, $html, $matches);
             if (sizeof($matches) > 1) {
