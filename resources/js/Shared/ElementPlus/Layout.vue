@@ -84,7 +84,7 @@
                 </div>
             </nav>
         </div>
-        <div class="flex flex-col min-h-screen pt-24 px-5 md:px-10 max-w-[768px]">
+        <div class="flex flex-col min-h-screen pt-24 px-5 md:px-10 2xl:px-64">
             <slot />
         </div>
         <div class="mt-10 py-6 text-center w-full">
