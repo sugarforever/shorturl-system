@@ -22,6 +22,7 @@ class ShortUrlResource extends JsonResource
         return [
             'long_url' => $this->long_url,
             'short_url' => env("APP_URL") . '/s/' . $token,
+            'title' => $this->title,
             'created_at' => $this->created_at->format('Y-m-d H:i:s'),
             'token' => $this->token,
             'qr_code' => file_exists($qrCodePath) ? "/{$token}.svg" : null,

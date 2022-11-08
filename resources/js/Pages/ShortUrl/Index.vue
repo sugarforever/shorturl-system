@@ -28,7 +28,7 @@
                             </div>
                             <div class="flex-1">
                                 <div class="">
-                                    {{ shortUrl.long_url }}
+                                    {{ shortUrl.title }}
                                 </div>
                                 <div class="flex mt-1">
                                     <span class="font-thin text-gray-600 text-sm">{{ shortUrl.created_at }}</span>

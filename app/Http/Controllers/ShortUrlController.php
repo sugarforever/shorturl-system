@@ -15,6 +15,9 @@ use Illuminate\Support\Facades\Log;
 use chillerlan\QRCode\QRCode;
 use chillerlan\QRCode\QROptions;
 use App\Services\PrometheusService;
+use DOMDocument;
+use Exception;
+use GuzzleHttp\Client;
 
 class ShortUrlController extends Controller
 {
@@ -55,12 +58,32 @@ class ShortUrlController extends Controller
         $long_url = $request->input('long_url');
         $user_id = auth()->user()->id;
         $token = $tokenService->nextToken();
+
+        Log::debug("Token: {$token}");
         $base62_encoded = $base62Service->encode($token);
+
+        $title = $long_url;
+
+        try {
+            $client = new Client();
+            $response = $client->request("GET", $long_url);
+            $html = (string) $response->getBody(); 
+            $pattern = "/<title>(.+?)<\/title>/i";
+            preg_match($pattern, $html, $matches);
+            if (sizeof($matches) > 1) {
+                $title = $matches[1];
+            }
+        } catch (Exception $ex) {
+            Log::error($ex->getMessage());
+        }
+
+        Log::debug("URL title: {$title}");
 
         $shortUrl = ShortUrl::create([
             'long_url' => $long_url,
             'token' => $base62_encoded,
-            'user_id' => $user_id
+            'user_id' => $user_id,
+            'title' => $title
         ]);
 
         ShortUrlView::create([
