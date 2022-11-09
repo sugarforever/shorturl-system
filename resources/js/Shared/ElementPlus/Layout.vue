@@ -49,7 +49,8 @@
                                 <button
                                     class="flex items-center gap-x-1 transition-all rounded-md outline-none focus:outline-none text-gray-700 dark:text-gray-300 hover:text-indigo-500   focus:text-indigo-500  inline-block px-4 py-2"
                                     id="headlessui-menu-button-4" type="button" aria-haspopup="true"
-                                    aria-expanded="false">
+                                    aria-expanded="false"
+                                    @click="toggleDropDown">
                                     <span>My Account</span>
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                         stroke="currentColor" aria-hidden="true" class="w-3 h-3">
@@ -57,23 +58,28 @@
                                             d="M19 9l-7 7-7-7"></path>
                                     </svg>
                                 </button>
-                                <div class="hidden z-20 lg:w-56 origin-top-right lg:right-0 text-sm rounded-md lg:absolute focus:outline-none bg-white shadow-lg dark:bg-gray-800"
+                                <div :class="`${dropdownClass} z-20 lg:w-56 origin-top-right lg:right-0 text-sm rounded-md lg:absolute focus:outline-none bg-white shadow-lg dark:bg-gray-800`"
                                     aria-labelledby="headlessui-menu-button-4" id="headlessui-menu-items-76" role="menu"
                                     tabindex="0">
                                     <div class="py-3" role="none">
-                                        <div id="headlessui-menu-item-77" role="menuitem" tabindex="-1">
+                                        <div role="menuitem" tabindex="-1">
                                             <a target="_blank" rel="noopener" class="flex space-x-2 lg:space-x-4 items-center px-5 py-2 text-gray-700 dark:text-gray-300 hover:text-indigo-500 focus:text-indigo-500" href="/profile">
                                                 <span> Profile</span>
                                             </a>
                                         </div>
-                                        <div id="headlessui-menu-item-78" role="menuitem" tabindex="-1">
+                                        <div role="menuitem" tabindex="-1">
                                             <a target="" rel="" class="flex space-x-2 lg:space-x-4 items-center px-5 py-2 text-gray-700 dark:text-gray-300 hover:text-indigo-500 focus:text-indigo-500" href="/settings">
                                                 <span> Settings</span>
                                             </a>
                                         </div>
-                                        <div id="headlessui-menu-item-79" role="menuitem" tabindex="-1">
+                                        <div role="menuitem" tabindex="-1">
                                             <a target="" rel="" class="flex space-x-2 lg:space-x-4 items-center px-5 py-2 text-gray-700 dark:text-gray-300 hover:text-indigo-500 focus:text-indigo-500" href="/billing">
                                                 <span> Billing</span>
+                                            </a>
+                                        </div>
+                                        <div role="menuitem" tabindex="-1">
+                                            <a target="" rel="" class="flex space-x-2 lg:space-x-4 items-center px-5 py-2 text-gray-700 dark:text-gray-300 hover:text-indigo-500 focus:text-indigo-500" href="/logout">
+                                                <span> Log out</span>
                                             </a>
                                         </div>
                                     </div>
@@ -96,9 +102,13 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
 
-const activeIndex = ref('1')
-const handleSelect = (key: string, keyPath: string[]) => {
-    console.log(key, keyPath)
+const dropdownClass = ref('hidden')
+const toggleDropDown = () => {
+    if (dropdownClass.value == 'hidden') {
+        dropdownClass.value = '';
+    } else {
+        dropdownClass.value = 'hidden';
+    }
 }
 </script>
 
