@@ -12,7 +12,8 @@ class ShortUrl extends Model
     protected $fillable = [
         'long_url',
         'token',
-        'user_id'
+        'user_id',
+        'title'
     ];
 
     public function user()
