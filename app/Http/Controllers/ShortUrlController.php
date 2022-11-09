@@ -28,9 +28,50 @@ class ShortUrlController extends Controller
      */
     public function index()
     {
-        $data = ShortUrlResource::collection(ShortUrl::orderBy('created_at', 'desc')->get());
+        $auth_user = auth()->user();
+        $user_id = empty($auth_user) ? null : $auth_user->id;
+        $shortUrls = ShortUrl::where('user_id', $user_id)->orderBy('created_at', 'desc')->paginate(10);
+        
+        $data = ShortUrlResource::collection($shortUrls);
+
+        $totalPages = $shortUrls->lastPage();
+        $currentPage = $shortUrls->currentPage();
+        $start = 1;
+        $end = 1;
+        if ($totalPages <= 5) {
+            $end = $totalPages;
+        } else {
+            $start = $currentPage - 2;
+            $end = $currentPage + 2;
+
+            if ($start <= 0) {
+                $end = $end + ($start + 1);
+                $start = 1;
+            } else if ($end > $totalPages) {
+                $start = $start - ($totalPages - $end);
+                $end = $totalPages;
+            }
+        }
+
+        $links = [];
+        for ($i = $start; $i <= $end; $i = $i + 1) {
+            $links[] = [
+                "index" => $i,
+                "url" => $shortUrls->url($i)
+            ];
+        }
+
         return Inertia::render("ShortUrl/Index", [
-            "shortUrls" => $data
+            "shortUrls" => $data,
+            "pagination" => [
+                "totalPages" => $totalPages,
+                "currentPage" => $shortUrls->currentPage(),
+                "firstPageUrl" => $currentPage == 1 ? "" : $shortUrls->url(1),
+                "lastPageUrl" => $currentPage == $totalPages ? "" : $shortUrls->url($totalPages),
+                "nextPageUrl" => $currentPage == $totalPages ? "" : $shortUrls->nextPageUrl(),
+                "previousPageUrl" => $currentPage == 1 ? "" : $shortUrls->previousPageUrl(),
+                "links" => $links
+            ]
         ]);
     }
 
