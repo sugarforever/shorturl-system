@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\GoogleAuthController;
 use App\Http\Controllers\PrometheusController;
 use App\Http\Controllers\ShortUrlController;
 use Illuminate\Support\Facades\Auth;
@@ -42,5 +43,10 @@ Route::resource('shorturl', ShortUrlController::class)->middleware(['auth']);
 
 Route::get('/s/{token}', [ShortUrlController::class, 'redirect'])->where('name', '[A-Za-z0-9]+');
 Route::get('/metrics', [PrometheusController::class, 'metrics']);
+
+# Google Auth routes
+Route::get('/google-auth/redirect', [GoogleAuthController::class, 'redirect'])->name("google.redirect");
+ 
+Route::get('/google-auth/callback', [GoogleAuthController::class, 'callback'])->name("google.callback");
 
 require __DIR__ . '/auth.php';

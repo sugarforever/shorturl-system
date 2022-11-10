@@ -52,6 +52,12 @@
                     {{ __('Log in') }}
                 </x-primary-button>
             </div>
+
+            <div class="flex items-center justify-end mt-4">
+                <div class="w-full text-center py-2 border bg-blue-700 text-white">
+                    <a class="w-full" href="{{ route("google.redirect") }}">{{ __('Log in with Google') }}</a>
+                </div>
+            </div>
         </form>
     </x-auth-card>
 </x-guest-layout>
