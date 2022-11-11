@@ -36,9 +36,21 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="flex count">
+                            <div class="flex flex-col">
                                 <div>
                                     <a :href="shortUrl.short_url" target="_blank" class="flex items-center justify-center px-2">{{ shortUrl.short_url }}</a>
+                                </div>
+                                <div class="flex justify-end mt-1">
+                                    <a class="twitter-share-button"
+                                        href="https://twitter.com/intent/tweet"
+                                        data-size=""
+                                        :data-text="shortUrl.title"
+                                        :data-url="shortUrl.short_url"
+                                        data-hashtags=""
+                                        data-via="xl2ink"
+                                        data-related="twitterapi,twitter">
+                                        Tweet
+                                    </a>
                                 </div>
                             </div>
                         </div>
