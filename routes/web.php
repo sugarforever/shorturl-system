@@ -41,7 +41,9 @@ Route::get('/shorturl/qrcode', [ShortUrlController::class, 'getQRCode'])->middle
 
 Route::resource('shorturl', ShortUrlController::class)->middleware(['auth']);
 
-Route::get('/s/{token}', [ShortUrlController::class, 'redirect'])->where('name', '[A-Za-z0-9]+');
+Route::group(['middleware' => ['role:admin']], function () {
+    Route::get('/s/{token}', [ShortUrlController::class, 'redirect'])->where('name', '[A-Za-z0-9]+');
+});
 Route::get('/metrics', [PrometheusController::class, 'metrics']);
 
 # Google Auth routes
