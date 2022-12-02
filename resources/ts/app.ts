@@ -14,8 +14,8 @@ import ElementPlus from 'element-plus'
 
 createInertiaApp({
   resolve: (name) => resolvePageComponent(`./Pages/${name}.vue`, import.meta.glob('./Pages/**/*.vue')),
-  setup({ el, App, props, plugin }) {
-    createApp({ render: () => h(App, props) })
+  setup({ el, app, props, plugin }) {
+    createApp({ render: () => h(app, props) })
       .use(plugin)
       .use(ElementPlus)
       .mount(el)

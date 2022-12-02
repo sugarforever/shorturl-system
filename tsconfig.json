@@ -1,0 +1,31 @@
+{
+    "compilerOptions": {
+        "target": "ESNext",
+        "module": "ESNext",
+        "moduleResolution": "node",
+        "strict": true,
+        "jsx": "preserve",
+        "sourceMap": true,
+        "resolveJsonModule": true,
+        "esModuleInterop": true,
+        "lib": [
+            "ESNext",
+            "DOM"
+        ],
+        "plugins": [
+            {
+                "name": "@vuedx/typescript-plugin-vue"
+            }
+        ],
+        "types": ["vite/client"],
+        "typeRoots": [
+            "node_modules/@types",
+        ],
+    },
+    "include": [
+        "resources/ts/*.ts",
+        "resources/ts/**/*.ts",
+        "resources/ts/**/*.d.ts",
+        "resources/ts/**/*.vue"
+    ]
+}
